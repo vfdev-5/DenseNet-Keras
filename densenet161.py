@@ -8,8 +8,12 @@ import keras.backend as K
 
 from custom_layers import Scale
 
-def DenseNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dropout_rate=0.0, weight_decay=1e-4, classes=1000, weights_path=None):
-    '''Instantiate the DenseNet 161 architecture,
+
+def DenseNet(nb_dense_block=4, growth_rate=48, nb_filter=96,
+             reduction=0.0, dropout_rate=0.0, weight_decay=1e-4,
+             classes=1000, weights_path=None):
+    """
+    Instantiate the DenseNet 161 architecture,
         # Arguments
             nb_dense_block: number of dense blocks to add to end
             growth_rate: number of filters to add per dense block
@@ -21,7 +25,7 @@ def DenseNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, drop
             weights_path: path to pre-trained weights
         # Returns
             A Keras model instance.
-    '''
+    """
     eps = 1.1e-5
 
     # compute compression factor
@@ -37,8 +41,7 @@ def DenseNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, drop
       img_input = Input(shape=(3, 224, 224), name='data')
 
     # From architecture for ImageNet (Table 1 in the paper)
-    nb_filter = 96
-    nb_layers = [6,12,36,24] # For DenseNet-161
+    nb_layers = [6, 12, 36, 24] # For DenseNet-161
 
     # Initial convolution
     x = ZeroPadding2D((3, 3), name='conv1_zeropadding')(img_input)
